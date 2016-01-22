@@ -252,7 +252,7 @@ function InstallProducts
     WriteLog $("Installing product: " + $productId)
         
     # Prep to running WebPICmd
-    $args = $("/Install /Products:`"" + $productId + "`" /AcceptEula /SuppressReboot /SuppressPostFinish /Language:" + $language)
+    $args = $("/Install /Products:`"" + $productId + "`" /AcceptEula /ForceReboot /SuppressPostFinish /Language:" + $language)
 
     WriteLog $("WebPICmd " + $args)
 
