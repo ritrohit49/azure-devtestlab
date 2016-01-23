@@ -19,7 +19,11 @@ Function Get-TempPassword() {
 
 $ascii=$NULL;For ($a=33;$a -le 126;$a++) {$ascii+=,[char][byte]$a }
 
-$userName = $("artifactInstaller" + (Get-Random | Out-String))
+$userName = "Installer" 
+
+# Generate a random suffix for the username
+(65..90) + (97..122) | Get-Random -Count 5 | % { $userName += [char]$_ }
+
 $password = Get-TempPassword -length 43 -sourcedata $ascii
 
 $cn = [ADSI]"WinNT://$env:ComputerName"
