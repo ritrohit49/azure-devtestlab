@@ -19,7 +19,7 @@ Function Get-TempPassword() {
 
 $ascii=$NULL;For ($a=33;$a -le 126;$a++) {$ascii+=,[char][byte]$a }
 
-$userName = "artifactInstaller"
+$userName = $("artifactInstaller" + (Get-Random | Out-String))
 $password = Get-TempPassword -length 43 -sourcedata $ascii
 
 $cn = [ADSI]"WinNT://$env:ComputerName"
@@ -48,9 +48,9 @@ $exitCode = Invoke-Command -ScriptBlock $scriptBlock -Credential $credential -Co
 Disable-PSRemoting -Force
 
 # Delete the artifactInstaller user
-$cn.Delete("User", $userName)
+#$cn.Delete("User", $userName)
 
 # Delete the artifactInstaller user profile
-gwmi win32_userprofile | where { $_.LocalPath -like "*$userName*" } | foreach { $_.Delete() }
+#gwmi win32_userprofile | where { $_.LocalPath -like "*$userName*" } | foreach { $_.Delete() }
 
 exit $exitCode
