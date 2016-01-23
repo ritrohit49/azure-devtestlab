@@ -48,9 +48,9 @@ $exitCode = Invoke-Command -ScriptBlock $scriptBlock -Credential $credential -Co
 Disable-PSRemoting -Force
 
 # Delete the artifactInstaller user
-#$cn.Delete("User", $userName)
+$cn.Delete("User", $userName)
 
 # Delete the artifactInstaller user profile
-#gwmi win32_userprofile | where { $_.LocalPath -like "*$userName*" } | foreach { $_.Delete() }
+gwmi win32_userprofile | where { $_.LocalPath -like "*$userName*" } | foreach { $_.Delete() }
 
 exit $exitCode
