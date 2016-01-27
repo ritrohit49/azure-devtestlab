@@ -8,9 +8,7 @@
         - installs webpi (webpicmd) via chocolatey.
         - installs specified webpi products.
 
-    - The following logs are generated on the machine - 
-        - Chocolatey's log : %ALLUSERSPROFILE%\chocolatey\logs folder.
-        - This script's log : $PSScriptRoot\InstallViaWebPICmd-{TimeStamp}\Logs folder.
+    - Logs are generated at - $PSScriptRoot\InstallViaWebPICmd-{TimeStamp}\Logs.
 
 
     Usage examples
@@ -78,6 +76,7 @@ $Language = "en"
 $InstallViaWebPICmdFolder = Join-Path $ScriptRoot -ChildPath $("InstallViaWebPICmd-" + [System.DateTime]::Now.ToString("yyyy-MM-dd-HH-mm-ss"))
 $ScriptLog = Join-Path -Path $InstallViaWebPICmdFolder -ChildPath "InstallViaWebPICmd.log"
 $ChocolateyInstallLog = Join-Path -Path $InstallViaWebPICmdFolder -ChildPath "ChocolateyInstall.log"
+$WebPICmdLog = Join-Path -Path $InstallViaWebPICmdFolder -ChildPath "WebPICmd.log"
 
 ##################################################################################################
 
@@ -251,8 +250,8 @@ function InstallProducts
 
     WriteLog $("Installing product: " + $productId)
         
-    # Prep to running WebPICmd
-    $args = $("/Install /Products:`"" + $productId + "`" /AcceptEula /ForceReboot /SuppressPostFinish /Language:" + $language)
+    # Prep to run WebPICmd
+    $args = $("/Install /Products:`"" + $productId + "`" /AcceptEula /ForceReboot /SuppressPostFinish /Language:" + $language + " /log:`"" + $WebPICmdLog + "`"")
 
     WriteLog $("WebPICmd " + $args)
 
@@ -262,7 +261,7 @@ function InstallProducts
     # check the exit code
     if (($p.ExitCode -ne 0) -and ($p.ExitCode -ne 3010))
     {
-        $errMsg = $("Error! Installation failed with exit code " + $p.ExitCode + ". Please see the WebPI logs in the '%LOCALAPPDATA%\Microsoft\Web Platform Installer\logs' folder for details.")
+        $errMsg = $("Error! Installation failed with exit code " + $p.ExitCode + ".")
         WriteLog $errMsg
         Write-Error $errMsg 
     }
