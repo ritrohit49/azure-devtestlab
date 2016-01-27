@@ -169,8 +169,7 @@ function WriteLog
 #  - Else a detailed terminating error is thrown.
 #
 # Notes:
-#  - @TODO: Write to $chocolateyInstallLog log file.
-#  - @TODO: Currently no errors are being written to the log file ($chocolateyInstallLog). This needs to be fixed.
+#  - N/A.
 #
 
 function InstallChocolatey
@@ -237,8 +236,7 @@ function InstallWebPICmd
 #  - Else a detailed terminating error is thrown.
 #
 # Notes:
-#  - @TODO: If a non-existent package is specified, WebPICmd still returns exit code 0 even though
-#    nothing is installed. 
+#  - N/A. 
 #
 
 function InstallProducts
