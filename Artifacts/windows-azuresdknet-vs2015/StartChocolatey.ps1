@@ -20,7 +20,7 @@ Function Get-TempPassword() {
 $ascii=$NULL;For ($a=33;$a -le 126;$a++) {$ascii+=,[char][byte]$a }
 
 $userName = "artifactInstaller"
-$password = Get-TempPassword –length 43 –sourcedata $ascii
+$password = Get-TempPassword -length 43 -sourcedata $ascii
 
 $cn = [ADSI]"WinNT://$env:ComputerName"
 
